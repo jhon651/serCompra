@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sercomprasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="sercomprasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="roles" EntityType="Self.role" />
+    <EntitySet Name="users" EntityType="sercomprasModel.user" />
+    <EntitySet Name="providers" EntityType="sercomprasModel.provider" />
+    <EntitySet Name="documents" EntityType="sercomprasModel.document" />
+    <EntitySet Name="budgets" EntityType="sercomprasModel.budget" />
+    <EntitySet Name="budget_detail" EntityType="sercomprasModel.budget_detail" />
+    <EntitySet Name="request_detail" EntityType="sercomprasModel.request_detail" />
+    <EntitySet Name="request_provider" EntityType="sercomprasModel.request_provider" />
+    <EntitySet Name="requests" EntityType="sercomprasModel.request" />
+  </EntityContainer>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="id_provider" Type="Int32" />
+    <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_role" Type="Int32" Nullable="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="update_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="provider">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="legal_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="rut" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_provider" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="size" Type="Int32" />
+    <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="budget">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_provider" Type="Int32" />
+    <Property Name="id_request" Type="Int32" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="budget_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_budget" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="request_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_request" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="request_provider">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_provider" Type="Int32" />
+    <Property Name="id_request" Type="Int32" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="request">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="purpose" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="date_limit" Type="DateTime" Precision="3" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+</Schema>

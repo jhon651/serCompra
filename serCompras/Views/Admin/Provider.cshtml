@@ -1,0 +1,154 @@
+﻿@model serCompras.Views.provider
+@{
+    Layout = "~/Views/Shared/_LT_Admin.cshtml";
+    ViewBag.Title = ViewBag.titlePart + " Proveedor";
+}
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="header">
+            <h2><strong>Datos del Proveedor</strong></h2>
+        </div>
+        <div class="body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="control-label ">Razon social</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.legal_name, new { @class = "form-control text-capitalize", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.legal_name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="example-date-input">RUT</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.rut, new { @class = "form-control text-capitalize", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.rut, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="control-label ">Correo Electronico</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.email, new { @class = "form-control", Type = "email", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="example-date-input">Telefono</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.phone, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-date-input">Direccion</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.address, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-date-input">Responsable</label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.id_user,
+                                new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "System Administrator", Value="1"},
+                                    new SelectListItem { Text = "Funcionario", Value = "2" },
+                                    new SelectListItem { Text = "Representante", Value = "4" },
+                                },
+                                "Seleccione...", new { @class = "form-control", maxlength = "100" })
+                                @Html.ValidationMessageFor(model => model.id_user, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label ">Estado</label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.status,
+                                        new List<SelectListItem>
+                                        {
+                                        new SelectListItem{Text="Activo", Value="1"},
+                                        new SelectListItem { Text = "Inactivo", Value = "0" }},
+                                        "Seleccione...", new { @class = "form-control", maxlength = "100" })
+                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="w-100 pt-4 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.idProvider != null)
+{
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="header">
+                <h2><strong>Documentos Requeridos</strong></h2>
+            </div>
+            <div class="body">
+                <div class="py-2">
+                    <h6 class="my-1">Documentos Cargados</h6>
+                    <table class="docs table-hover rounded w-100">
+                        <thead>
+                            <tr>
+                                <th width="10%">ID</th>
+                                <th>Nombre</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th width="20%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Documents)
+                            {
+                                string create = item.created_at.ToString();
+                                <tr>
+                                    <td>@item.id</td>
+                                    <td>
+                                        <a class="btn btn-link text-primary" target="_blank" href="@item.path.Replace(@"~","")">
+                                            @item.name
+                                        </a>
+                                    </td>
+                                    <td>@create.Split(' ')[0]</td>
+                                    <td>@(item.status == 1 ? "Aprobado" : item.status == 2 ? "Rechazado" : "Cargado")</td>
+                                    <td>
+                                        @if (@item.status == 0)
+                                        {
+                                            <a class="btn btn-link text-success" href="/Admin/ApproveDoc/@item.id"><i class="fas fa-check-circle"></i></a>
+                                            <a class="btn btn-link text-danger" href="/Admin/RejectDoc/@item.id"><i class="fas fa-times-circle"></i></a>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+}

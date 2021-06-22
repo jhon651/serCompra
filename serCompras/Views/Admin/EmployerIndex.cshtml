@@ -1,0 +1,174 @@
+﻿@using sercompra.Models
+@model Presales
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid" style="margin-top:140px;width:80%;">
+    <div class="row">
+        <div class="col-md-12">
+            <header>
+                <h2>Generar Cotización</h2>
+                <p>Seleccione un máximo de 5 proveedores para generar la solicitud haciendo clic en el registro</p>
+            </header>
+            <table id="example" style="width:100%" class="table-responsive-md">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nit</th>
+                        <th>Email</th>
+                        <th>Login</th>
+                        <th>Contacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+            <button id='manageBtn' type='button' class='btn btn-info btn-xs'>Generar Cotización</button>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+
+
+    <script>
+
+        var table;
+        var id = "";
+        $(document).ready(function () {
+
+           table=  $('#example').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'ajax': {
+                    'url': '@Url.Content("~/Admin/GetData")',
+                    "type": "POST",
+                    "datatype": "json",
+                },
+                'pageLentgth': 10,
+                "filter": true,
+                "responsivePriority": 2,
+                "data": null,
+                "columns": [
+                    { "data": "Id", "name": "Id", "autoWidth": true },
+                    { "data": "SocialName", "name": "SocialName", "autoWidth": true },
+                    { "data": "Nit", "name": "Nit", "autoWidth": true },
+                    { "data": "Email", "name": "Email", "autoWidth": true },
+                    { "data": "UserName", "name": "UserNumber", "autoWidth": true },
+                    { "data": "PhoneNumber", "name": "PhoneNumber", "autoWidth": true },
+
+
+                ],
+               "columnDefs": [{ "data": null, "targets": [5], "defaultContent": ""}],
+
+
+            });
+        });
+        $('#example tbody').on('click', 'tr', function () {
+            $(this).toggleClass('selected');
+            var data = table.row($(this)).data();
+            if ($("#ids").val() == "") {
+                var prev = [];
+            } else {
+                var prev = $("#ids").val().split("||");
+            }
+            if ($(this).hasClass("selected")) {
+                console.log(prev)
+                if (prev.indexOf(data["Id"]) === -1) {
+                    prev.push(data["Id"])
+                    console.log(prev);
+                }
+            } else {
+                if (prev.indexOf(data["Id"]) !== -1) {
+                    prev.splice(prev.indexOf(data["Id"]),1)
+                    console.log(prev);
+                }
+
+            }
+            console.log(prev.join("||"))
+
+            $("#ids").val(prev.join("||"));
+        });
+
+        $('#manageBtn').click(function () {
+            var limit = 10
+            if (table.rows('.selected').data().length > limit || table.rows('.selected').data().length == 0) {
+                alert("Solo se permite un máximo de " + limit + " registros")
+            } else {
+                $('#exampleModal').modal("toggle")
+            }
+
+        });
+
+        $('#example tbody').on('click', 'button', function () {
+            var data = table.row($(this).parents('tr')).data();
+
+            id = data["Id"];
+            $("#exampleModal .modal-body").html("Desea aprobar a la empresa: " + data["SocialName"])
+        });
+
+        function createManageBtn() {
+
+            $.ajax({
+                url: "@Url.Content("~/Admin/Verify")",
+                dataType: 'json',
+                method: 'POST',
+                data: {id: id}
+            }).done(function () {
+                $('#exampleModal').modal("toggle")
+                table.draw();
+            });
+        }
+
+    </script>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("SavePresales", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4>Cree una cotización nueva</h4>
+                        <hr />
+                        <input id="ids" name="Ids" type="hidden" value="" />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Presale_Name, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(m => m.Presale_Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Creation, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(m => m.Creation, new { @class = "form-control datepicker" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Expiration, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(m => m.Expiration, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-default" value="Registrarse" />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+

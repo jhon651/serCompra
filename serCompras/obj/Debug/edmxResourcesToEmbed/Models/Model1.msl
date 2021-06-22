@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="serComprasModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="documents">
+      <EntityTypeMapping TypeName="serComprasModel.document">
+        <MappingFragment StoreEntitySet="documents">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="providers">
+      <EntityTypeMapping TypeName="serComprasModel.provider">
+        <MappingFragment StoreEntitySet="provider">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="legal_name" ColumnName="legal_name" />
+          <ScalarProperty Name="rut" ColumnName="rut" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="serComprasModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="serComprasModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

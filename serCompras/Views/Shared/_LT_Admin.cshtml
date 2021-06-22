@@ -1,0 +1,119 @@
+﻿
+<!doctype html>
+<html class="no-js " lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Sistema de administracion de compras y preupuestos.">
+    <title>SerCompras :: Administrador</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+    <link rel="stylesheet" href="~/Content/assets/Admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/Admin/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css" />
+    <link rel="stylesheet" href="~/Content/assets/Admin/plugins/charts-c3/plugin.css" />
+    <link rel="stylesheet" href="~/Content/assets/Admin/plugins/morrisjs/morris.min.css" />
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="~/Content/assets/Admin/css/style.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+
+</head>
+
+<body class="theme-blush">
+
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="~/Content/assets/Admin/images/loader.svg" width="48" height="48" alt="Aero"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Main Search -->
+    <div id="search">
+        <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+        <form>
+            <input type="search" value="" placeholder="Search..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <div class="navbar-brand">
+            <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+            <div id="logo" class="pull-left d-flex justify-content-center align-items-center">
+                <a href="#intro" class="scrollto"><img src="~/Content/assets/Landing/img/logo-1.png" alt="logo-1" style="width: 60px;"></a>
+                <p class="logo m-0 pl-2">Sercompra</p>
+            </div>
+        </div>
+        <div class="menu">
+            <ul class="list">
+                <li>
+                    <div class="user-info">
+                        <a class="image" href="profile.html"><i class="fas fa-user-circle"></i></a>
+                        <div class="detail text-left w-100">
+                            <h6 class="m-0">Administrador</h6>
+                            <small>Administrador</small>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="~/Admin"><i class="zmdi zmdi-home"></i><span>Inicio</span></a></li>
+                <li><a href="~/Admin/Requests"><i class="zmdi zmdi-assignment"></i><span>Solicitudes</span></a></li>
+                <li><a href="~/Admin/Budgets"><i class="zmdi zmdi-file-plus"></i><span>Presupuestos</span></a></li>
+                <li><a href="~/Admin/Providers"><i class="zmdi zmdi-store"></i><span>Proveedores</span></a></li>
+                <li><a href="~/Admin/Users"><i class="zmdi zmdi-accounts"></i><span>Usuarios</span></a></li>
+                <li><a href="~/Admin/Profile"><i class="zmdi zmdi-accounts"></i><span>Perfil</span></a></li>
+
+            </ul>
+        </div>
+    </aside>
+
+
+    <!-- Main Content -->
+
+    <section class="content">
+        <div class="">
+            <div class="block-header">
+                <div class="w-100 d-flex align-items-center justify-content-between">
+                    <div class="col-lg-7 col-md-6 col-sm-12">
+                        <h2>@ViewBag.Title </h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="~/Admin"><i class="zmdi zmdi-home"></i> SerCompras</a></li>
+                            <li class="breadcrumb-item active">@ViewBag.Title </li>
+                        </ul>
+                    </div>
+                    @if (ViewBag.Back != null)
+                    {
+                        <a class="text-secondary" href="@ViewBag.URL"><i class="fas fa-chevron-circle-left mr-1"></i>Volver</a>
+                    }
+                    @if (ViewBag.Create != null)
+                    {
+                        <a href="@ViewBag.URL"><i class="fas fa-plus mr-1"></i>@ViewBag.Text</a>
+                    }
+
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </section>
+
+
+    <!-- Jquery Core Js -->
+    <script src="~/Content/assets/Admin/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
+    <script src="~/Content/assets/Admin/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+
+    <script src="~/Content/assets/Admin/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
+    <script src="~/Content/assets/Admin/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
+    <script src="~/Content/assets/Admin/bundles/c3.bundle.js"></script>
+
+    <script src="~/Content/assets/Admin/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Content/assets/Admin/js/pages/index.js"></script>
+</body>
+
+
+</html>

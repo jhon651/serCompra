@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNet.Identity
+
+<link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a>
+                    @Html.ActionLink("Hola " + User.Identity.GetUserName() + "", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </a>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <!--<li class="menu-active"><a>@Html.ActionLink("Inicio", "Index", "Home")</a></li>
+        <li><a href="#about">@Html.ActionLink("Acerca de", "About", "Home")</a></li>-->
+        @*<li><a href="#services">Servicios</a></li>*@
+        <!--<li>@Html.ActionLink("Contacto", "Contact", "Home")</li>-->
+
+        <li><a> @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</a> </li>
+        <li><a>  @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</a></li>
+    </ul>
+
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/Scripts/jquery.dataTables.min.js")
+        @Scripts.Render("~/Scripts/fileinput.min.js")
+        @RenderSection("scripts", required: false)*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery.dataTables.min.js")
+    @Scripts.Render("~/Scripts/fileinput.min.js")
+}

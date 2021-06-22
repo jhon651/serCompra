@@ -1,0 +1,95 @@
+﻿@model serCompras.Views.request
+@{
+    Layout = "~/Views/Shared/_LT_Admin.cshtml";
+    ViewBag.Title = ViewBag.titlePart + " solicitud";
+}
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="header">
+            <h2><strong>Datos</strong> Basicos</h2>
+        </div>
+        <div class="body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="control-label ">Proposito</label>
+                            <div class="w-100">
+                                @Html.TextAreaFor(model => model.purpose, new { @class = "form-control ", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.purpose, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="example-date-input">Fecha Limite</label>
+                            <div class="w-100">
+                                @Html.TextBoxFor(model => model.date_limit, new { @class = "form-control w-100", type = "date", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.date_limit, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100 pt-4 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+    <div class="card">
+        <div class="header">
+            <h2><strong>Articulos</strong> Requeridos</h2>
+        </div>
+        <div class="body">
+            <div class="d-flex justify-content-between align-items-center border rounded px-2">
+                <form action="~/Admin/AddArticle" method="post" class="w-100">
+                    <table class="w-100">
+                        <tr>
+                            <th class="font-weight-bold px-2" width="10%">Cantidad</th>
+                            <th class="font-weight-bold  px-2">Descripcion</th>
+                            <th width="10%"></th>
+                        </tr>
+                        <tr>
+                            <td class=" px-2"><input type="number" name="quantity" value="0" /></td>
+                            <td class=" px-2"><input type="text" name="description" maxlength="100" class="w-100" /></td>
+                            <td class=" px-2">
+                                <button type="submit" class="btn btn-success">Agregar</button>
+                            </td>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2><strong>Articulos</strong> Requeridos</h2>
+        </div>
+        <div class="body">
+            <div class="d-flex justify-content-between align-items-center border rounded px-2">
+                <form action="~/Admin/AddProvider" method="post" class="w-100">
+                    <table class="w-100">
+                        <tr>
+                            <th class="font-weight-bold">Proveedor</th>
+                            <th width="10%"></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select>
+                                    <option value="value">text</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-success">Agregar</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,93 @@
+﻿@using System.Web.Security;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="~/Content/assets/Landing/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <link href="~/Content/assets/Landing/img/logo-1.png" rel="icon">
+    <link href="~/Content/assets/Landing/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Libraries CSS Files -->
+    <link href="~/Content/assets/Landing/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/assets/Landing/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/Content/assets/Landing/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/Content/assets/Landing/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/Content/assets/Landing/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="~/Content/assets/Landing/css/style.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+    <!--==========================
+      Header
+    ============================-->
+    <header id="header">
+        <div class="container-fluid">
+            <div id="logo" class="pull-left">
+                <a href="#intro" class="scrollto"><img src="~/Content/assets/Landing/img/logo-1.png" alt="logo-1" style="width: 60px;"></a>
+            </div>
+            @Html.ActionLink("Sercompra", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li><a href="~/Home">Home</a></li>
+                    <li><a href="~/Home/About">Acerca de</a></li>
+                    <li><a href="~/Home/Services">Servicios</a></li>
+                    <li><a href="~/Home/Contact">Contacto</a></li>
+                    <li><a href="~/Signup">Registrarse</a></li>
+                    <li><a href="~/Signin">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer id="footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong> @DateTime.Now.Year -  Sercompra</strong>. All Rights Reserved
+            </div>
+
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- Uncomment below i you want to use a preloader -->
+    <!-- <div id="preloader"></div> -->
+    <!-- JavaScript Libraries -->
+    <script src="~/Content/assets/Landing/lib/jquery/jquery.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/jquery/jquery-migrate.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/easing/easing.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/superfish/hoverIntent.js"></script>
+    <script src="~/Content/assets/Landing/lib/superfish/superfish.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/wow/wow.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/counterup/counterup.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="~/Content/assets/Landing/lib/touchSwipe/jquery.touchSwipe.min.js"></script>
+    <!-- Contact Form JavaScript File -->
+    <script src="~/Content/assets/Landing/contactform/contactform.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="~/Content/assets/Landing/js/main.js"></script>
+
+
+</body>
+</html>

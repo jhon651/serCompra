@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="sercomprasModelStoreContainer" CdmEntityContainer="sercomprasEntities">
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="sercomprasModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="sercomprasModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="providers">
+      <EntityTypeMapping TypeName="sercomprasModel.provider">
+        <MappingFragment StoreEntitySet="provider">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="rut" ColumnName="rut" />
+          <ScalarProperty Name="legal_name" ColumnName="legal_name" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documents">
+      <EntityTypeMapping TypeName="sercomprasModel.document">
+        <MappingFragment StoreEntitySet="documents">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="size" ColumnName="size" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="budgets">
+      <EntityTypeMapping TypeName="sercomprasModel.budget">
+        <MappingFragment StoreEntitySet="budget">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="id_request" ColumnName="id_request" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="budget_detail">
+      <EntityTypeMapping TypeName="sercomprasModel.budget_detail">
+        <MappingFragment StoreEntitySet="budget_detail">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="id_budget" ColumnName="id_budget" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="request_detail">
+      <EntityTypeMapping TypeName="sercomprasModel.request_detail">
+        <MappingFragment StoreEntitySet="request_detail">
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="id_request" ColumnName="id_request" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="request_provider">
+      <EntityTypeMapping TypeName="sercomprasModel.request_provider">
+        <MappingFragment StoreEntitySet="request_provider">
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="id_request" ColumnName="id_request" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="requests">
+      <EntityTypeMapping TypeName="sercomprasModel.request">
+        <MappingFragment StoreEntitySet="request">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="date_limit" ColumnName="date_limit" />
+          <ScalarProperty Name="purpose" ColumnName="purpose" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

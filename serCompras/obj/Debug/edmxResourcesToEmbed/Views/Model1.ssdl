@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sercomprasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="budget">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_provider" Type="int" />
+    <Property Name="id_request" Type="int" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="status" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="budget_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_budget" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="description" Type="nvarchar" MaxLength="50" />
+    <Property Name="price" Type="int" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="status" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="documents">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_provider" Type="int" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="path" Type="nvarchar" MaxLength="255" />
+    <Property Name="size" Type="int" />
+    <Property Name="content" Type="nvarchar" MaxLength="255" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="status" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="provider">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="legal_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="rut" Type="nvarchar" MaxLength="50" />
+    <Property Name="phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="status" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="request">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="purpose" Type="nvarchar" MaxLength="100" />
+    <Property Name="date_limit" Type="datetime" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="status" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="request_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_request" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="description" Type="nvarchar" MaxLength="50" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="request_provider">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_provider" Type="int" />
+    <Property Name="id_request" Type="int" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_provider" Type="int" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="id_role" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="status" Type="tinyint" />
+  </EntityType>
+  <EntityContainer Name="sercomprasModelStoreContainer">
+    <EntitySet Name="budget" EntityType="Self.budget" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="budget_detail" EntityType="Self.budget_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="documents" EntityType="Self.documents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="provider" EntityType="Self.provider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="request" EntityType="Self.request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="request_detail" EntityType="Self.request_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="request_provider" EntityType="Self.request_provider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

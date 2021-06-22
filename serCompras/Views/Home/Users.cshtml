@@ -1,0 +1,39 @@
+﻿@model IEnumerable<serCompras.Views.user>
+
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Usuario</th>
+            <th>Clave</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.firstname</td>
+                <td>@item.lastname</td>
+                <td>@item.email</td>
+                <td>@item.id_role</td>
+                <td>@item.password</td>
+                <td>@item.status</td>
+                <td>
+                    @Html.ActionLink("Editar", "Usuario", new { id = item.Id }, new { @class = "btn btn-link" })
+                    <form action="~/Home/BorrarUsuario/@item.Id)" method="post">
+                        <input type="hidden" name="Id" value="@item.Id)" />
+                        <input type="hidden" name="Estado" value="-1" />
+                        <button type="submit" class="btn btn-link text-danger">Eliminar</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
