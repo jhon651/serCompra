@@ -10,7 +10,14 @@
             <h2><strong>Datos del Proveedor</strong></h2>
         </div>
         <div class="body">
+            @{
+                var status = "En Creacion";
 
+                if(Model != null)
+                {
+                    status = Model.status == 0 ? "Registrado" : Model.status == 1 ? "Revision" : Model.status == 2 ? "Autorizado" : Model.status == 3 ? "Inabilitado" : "Rechazado";
+                }
+             }
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -56,39 +63,42 @@
                                 @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <label for="example-date-input">Responsable</label>
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.id_user,
-                                new List<SelectListItem>
-                                {
-                                    new SelectListItem { Text = "System Administrator", Value="1"},
-                                    new SelectListItem { Text = "Funcionario", Value = "2" },
-                                    new SelectListItem { Text = "Representante", Value = "4" },
-                                },
-                                "Seleccione...", new { @class = "form-control", maxlength = "100" })
-                                @Html.ValidationMessageFor(model => model.id_user, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
                         <div class="col-6">
                             <label class="control-label ">Estado</label>
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.status,
-                                        new List<SelectListItem>
-                                        {
-                                        new SelectListItem{Text="Activo", Value="1"},
-                                        new SelectListItem { Text = "Inactivo", Value = "0" }},
-                                        "Seleccione...", new { @class = "form-control", maxlength = "100" })
-                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                <input type="hidden" name="status" value="@Model.status" />
+                                <label class="form-control w-100">@status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-date-input">Usuario Representante</label>
+                            <div class="col-md-10">
+                                <select class="w-100 " name="id_user" required>
+                                    <option value="@Model.id_user">Seleccione...</option>
+                                    @foreach (var item in ViewBag.Users)
+                                    {
+                                        <option value="@item.Id">@(item.firstname + " " + item.lastname )</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="w-100 pt-4 d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                    <div class="w-100 pt-4 d-flex justify-content-around align-items-end">
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        @if (Model.status == 2)
+                        {
+                            //<a href="/Admin/DisableProvider/@Model.id" class="btn btn-warning">Inhabilitar</a>
+                        }
+                        @if (Model.status == 3)
+                        {
+                            //<a href="/Admin/DisableProvider/@Model.id" class="btn btn-success">Habilitar</a>
+                        }
+
                     </div>
                 </div>
             }
@@ -132,8 +142,8 @@
                                     <td>
                                         @if (@item.status == 0)
                                         {
-                                            <a class="btn btn-link text-success" href="/Admin/ApproveDoc/@item.id"><i class="fas fa-check-circle"></i></a>
-                                            <a class="btn btn-link text-danger" href="/Admin/RejectDoc/@item.id"><i class="fas fa-times-circle"></i></a>
+                                            <a class="btn btn-link text-success" href="/Admin/ApproveDoc/?idProvider=@Model.id&id=@item.id"><i class="fas fa-check-circle"></i></a>
+                                            <a class="btn btn-link text-danger" href="/Admin/RejectDoc/?idProvider=@Model.id&id=@item.id"><i class="fas fa-times-circle"></i></a>
                                         }
                                     </td>
 

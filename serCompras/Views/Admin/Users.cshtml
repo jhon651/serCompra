@@ -1,53 +1,53 @@
-﻿@model IEnumerable<serCompras.Views.user>
+﻿@model IEnumerable<serCompras.Models.User>
 @{
     Layout = "~/Views/Shared/_LT_Admin.cshtml";
     ViewBag.Title = "Usuarios";
 }
 
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="card">
-                <div class="header">
-                    <h2><strong>Usuarios Registrados</strong></h2>
-                </div>
-                <div class="body">
-                    <div class="table-responsive">
-                        <table class="table table-hover rounded">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Email</th>
-                                    <th>Usuario</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th width="10%">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.firstname</td>
-                                        <td>@item.lastname</td>
-                                        <td>@item.email</td>
-                                        <td>@item.username</td>
-                                        <td>@item.id_role</td>
-                                        <td>@(item.status == 1 ? "Activo" : "Inactivo")</td>
-                                        <td>
-                                            <a class="btn btn-link text-primary" href="/Admin/User/@item.Id"><i class="fas fa-edit mr-1"></i></a>
-                                            <a class="btn btn-link text-danger" href="/Admin/DeleteUser/@item.Id"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="header">
+            <h2><strong>Usuarios Registrados</strong></h2>
+        </div>
+        <div class="body">
+            <div class="table-responsive">
+                <table class="table table-hover rounded">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Usuario</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th width="10%">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.firstname</td>
+                                <td>@item.lastname</td>
+                                <td>@item.email</td>
+                                <td>@item.username</td>
+                                <td>@item.role</td>
+                                <td>@(item.status == 1 ? "Activo" : "Inactivo")</td>
+                                <td>
+                                    <a class="btn btn-link text-primary" href="/Admin/User/@item.id"><i class="fas fa-edit mr-1"></i></a>
+                                    <a class="btn btn-link text-danger" href="/Admin/DeleteUser/@item.id"><i class="fas fa-trash-alt"></i></a>
+                                </td>
 
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 
 
 

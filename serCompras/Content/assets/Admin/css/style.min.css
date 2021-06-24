@@ -1260,9 +1260,10 @@ h5,
 }
 h6,
 .h6 {
- font-size:.9em;
+ font-size:1.2em;
  font-weight:700;
- text-transform:uppercase
+ text-transform:uppercase; 
+ z-index: 9999999999999999999999;
 }
 p {
  line-height:1.61em
@@ -15048,11 +15049,12 @@ section.content {
  transform:rotate(20deg);
  font-family:"Material-Design-Iconic-Font";
  font-size:82px;
- color:#f0f0f0;
+ color:#f0f0f0a6;
  position:absolute;
  top:-20px;
- right:40px;
- line-height:normal
+ right:-12px;
+ line-height:normal;
+ z-index: 3;
 }
 .big_icon.storage::before {
  content:"\f297"

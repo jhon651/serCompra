@@ -18,6 +18,7 @@ namespace serCompras.Views
         public Nullable<int> id_provider { get; set; }
         public string name { get; set; }
         public string path { get; set; }
+        public Nullable<byte> type { get; set; }
         public Nullable<int> size { get; set; }
         public string content { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }

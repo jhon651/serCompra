@@ -62,11 +62,11 @@
                             <div class="col-md-10">
                                 @if (Model == null)
                                 {
-                                    @Html.TextBoxFor(model => model.username, new { @class = "form-control", Type = "password", maxlength = "100", required = "required", value = "", id = "password", autocomplete = "off" })
-                                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" }) }
+                                    @Html.TextBoxFor(model => model.password, new { @class = "form-control", type = "password", maxlength = "100", required = "required", value = "", id = "password", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" }) }
                                 else
                                 {
-                                    @Html.TextBoxFor(model => model.password, new { @class = "form-control", Type = "password", maxlength = "100", value = "", placeholder = "Ingrese para modificar", id = "password", autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.password, new { @class = "form-control", type = "password", maxlength = "100", value = "", placeholder = "Ingrese para modificar", id = "password", autocomplete = "off" })
                                     @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })}
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                 {
                                     new SelectListItem { Text = "System Administrator", Value="1"},
                                     new SelectListItem { Text = "Funcionario", Value = "2" },
-                                    new SelectListItem { Text = "Representante", Value = "4" },
+                                    new SelectListItem { Text = "Representante", Value = "3" },
                                 },
                                 "Seleccione...", new { @class = "form-control", maxlength = "100" })
                                 @Html.ValidationMessageFor(model => model.id_role, "", new { @class = "text-danger" })
@@ -101,7 +101,7 @@
 
                     </div>
 
-                    <div class="w-100 pt-4 d-flex justify-content-center align-items-center">
+                    <div class="w-100 pt-4 d-flex justify-content-center align-items-end">
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </div>

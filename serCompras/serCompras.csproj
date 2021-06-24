@@ -135,7 +135,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Counters.cs" />
+    <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\DocumentUpload.cs" />
+    <Compile Include="Models\ProviderList.cs" />
+    <Compile Include="Models\Providers.cs" />
+    <Compile Include="Models\Budgets.cs" />
+    <Compile Include="Models\Requests.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\budget.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -552,6 +560,7 @@
     <Content Include="Content\assets\Login\fonts\icomoon\fonts\icomoon.ttf" />
     <Content Include="Content\assets\Login\fonts\icomoon\fonts\icomoon.woff" />
     <Content Include="Content\assets\Login\fonts\icomoon\selection.json" />
+    <Content Include="Content\assets\Docs\Formulario.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -598,7 +607,6 @@
     <Content Include="Views\Admin\Budget.cshtml" />
     <Content Include="Views\Admin\Budgets.cshtml" />
     <Content Include="Views\Admin\Providers.cshtml" />
-    <Content Include="Views\Admin\EmployerIndex.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Request.cshtml" />
     <Content Include="Views\Admin\Requests.cshtml" />

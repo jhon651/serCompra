@@ -1,6 +1,125 @@
-﻿
+﻿@model serCompras.Models.Budget
 @{
     Layout = "~/Views/Shared/_LT_Admin.cshtml";
-    ViewBag.Title = ViewBag.titlePart + "Presupuesto";
+    ViewBag.Title = ViewBag.titlePart + " Presupuesto";
 }
 
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="header">
+            <h2><strong>Datos</strong> Basicos</h2>
+        </div>
+        <div class="body">
+
+            @{
+
+                var date_limit = "";
+                var status = "En Creacion";
+                if (Model != null)
+                {
+                    var dateModel = Model.date_limit.ToString().Split(' ')[0].Split('/');
+                    date_limit = dateModel[2] + '-' + dateModel[1] + '-' + dateModel[0];
+
+                    status = Model.status == 0 ? "Creada" : Model.status == 1 ? "Enviada" : Model.status == 2 ? "Aceptada" : Model.status == 3 ? "Finalizada" : Model.status == 4 ? "Vencida" : "No Disponible";
+                }
+
+            }
+            <div class="form-horizontal">
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label for="example-date-input">Solicitado por</label>
+                        <div class="w-100">
+                            <label class="form-control">@Model.fullname</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="example-date-input">Estado</label>
+                        <div class="w-100">
+                            <label class="form-control disabled">@status</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label for="example-date-input">Fecha Cotizacion</label>
+                        <div class="w-100">
+                            <label class="form-control">@Model.created_at</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="example-date-input">Fecha Limite</label>
+                        <div class="w-100">
+                            <label class="form-control">@Model.date_limit</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label for="example-date-input">Codigo Solicitud</label>
+                        <div class="w-100">
+                            <label class="form-control">@Model.id_request</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="example-date-input">Codigo Cotizacion</label>
+                        <div class="w-100">
+                            <label class="form-control">@Model.id</label>
+                        </div>
+                    </div>
+
+                </div>
+                @if (Model.status == 1 && (int)Context.Session["id_role"]==2)
+                {
+                    <div class="w-100 d-flex justify-content-end align-items-center" >
+                        <a href="/Admin/AcceptBudget/@Model.id" class="btn btn-success"><i class="fas fa-check mr-1"></i>Aceptar</a>
+                        <a href="/Admin/RejectBudget/@Model.id" class="btn btn-warning"><i class="fas fa-times mr-1"></i>Rechazar</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        <div class="card">
+            <div class="header">
+                <h2><strong>Lista</strong> Articulos</h2>
+            </div>
+            <div class="body">
+                <div class="mt-2">
+                    <table class="table w-100">
+                        <tr>
+                            <th width="10%">Cantidad</th>
+                            <th class="text-left">Descripcion</th>
+                            <th width="20%">Precio</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var item in ViewBag.Articles)
+                            {
+                                <tr>
+                                    <td>@item.quantity</td>
+                                    <td class="text-left">@item.description</td>
+                                    <td>
+                                        <form class="d-flex justify-content-center align-items-center" action="/Admin/SetPrice/@item.id" method="post">
+                                            <input type="hidden" name="idBudget" value="@Model.id" />
+                                            @if ((int)Context.Session["Id_role"] == 2)
+                                            {
+                                                <label class="font-weight-bold">$ @item.price </label>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" name="price" class="form-control" value="@item.price" />
+                                                <button class="btn btn-success" type="submit"><i class="fas fa-paper-plane"></i></button>
+                                            }
+
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

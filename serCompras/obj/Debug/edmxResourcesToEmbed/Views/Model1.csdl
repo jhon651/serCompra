@@ -11,12 +11,12 @@
     <EntitySet Name="roles" EntityType="Self.role" />
     <EntitySet Name="users" EntityType="sercomprasModel.user" />
     <EntitySet Name="providers" EntityType="sercomprasModel.provider" />
-    <EntitySet Name="documents" EntityType="sercomprasModel.document" />
     <EntitySet Name="budgets" EntityType="sercomprasModel.budget" />
     <EntitySet Name="budget_detail" EntityType="sercomprasModel.budget_detail" />
     <EntitySet Name="request_detail" EntityType="sercomprasModel.request_detail" />
     <EntitySet Name="request_provider" EntityType="sercomprasModel.request_provider" />
     <EntitySet Name="requests" EntityType="sercomprasModel.request" />
+    <EntitySet Name="documents" EntityType="sercomprasModel.document" />
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -46,20 +46,6 @@
     <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="created_at" Type="DateTime" Precision="3" />
-    <Property Name="updated_at" Type="DateTime" Precision="3" />
-    <Property Name="status" Type="Byte" />
-  </EntityType>
-  <EntityType Name="document">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_provider" Type="Int32" />
-    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="size" Type="Int32" />
-    <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="created_at" Type="DateTime" Precision="3" />
     <Property Name="updated_at" Type="DateTime" Precision="3" />
     <Property Name="status" Type="Byte" />
@@ -118,6 +104,21 @@
     <Property Name="id_user" Type="Int32" />
     <Property Name="purpose" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="date_limit" Type="DateTime" Precision="3" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_provider" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="type" Type="Byte" />
+    <Property Name="size" Type="Int32" />
+    <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="created_at" Type="DateTime" Precision="3" />
     <Property Name="updated_at" Type="DateTime" Precision="3" />
     <Property Name="status" Type="Byte" />

@@ -52,22 +52,44 @@
             </div>
         </div>
         <div class="menu">
-            <ul class="list">
-                <li>
-                    <div class="user-info">
-                        <a class="image" href="profile.html"><i class="fas fa-user-circle"></i></a>
+            <div class="user-info m-0">
+                <div class="btn-group dropright">
+                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="detail text-left w-100">
-                            <h6 class="m-0">Administrador</h6>
-                            <small>Administrador</small>
+                            <h6 class="m-0">@Context.Session["Fullname"]</h6>
+                            <small>@Context.Session["Role"]</small>
                         </div>
+                    </button>
+                    <div class="dropdown-menu">
+                        @if (@Context.Session["Id_role"].Equals(3))
+                        {
+                            <a class="dropdown-item" href="~/Admin/Profile">Perfil</a>
+                            <div class="dropdown-divider"></div>
+                        }
+
+                        <a class="dropdown-item text-danger" href="~/Signin/Logout">Salir</a>
                     </div>
-                </li>
+                </div>
+            </div>
+            <ul class="list">
                 <li><a href="~/Admin"><i class="zmdi zmdi-home"></i><span>Inicio</span></a></li>
-                <li><a href="~/Admin/Requests"><i class="zmdi zmdi-assignment"></i><span>Solicitudes</span></a></li>
-                <li><a href="~/Admin/Budgets"><i class="zmdi zmdi-file-plus"></i><span>Presupuestos</span></a></li>
-                <li><a href="~/Admin/Providers"><i class="zmdi zmdi-store"></i><span>Proveedores</span></a></li>
-                <li><a href="~/Admin/Users"><i class="zmdi zmdi-accounts"></i><span>Usuarios</span></a></li>
-                <li><a href="~/Admin/Profile"><i class="zmdi zmdi-accounts"></i><span>Perfil</span></a></li>
+
+                @if (@Context.Session["Id_role"].Equals(1))
+                {
+                    <li><a href="~/Admin/Users"><i class="zmdi zmdi-accounts"></i><span>Usuarios</span></a></li>
+                }
+
+                @if (@Context.Session["Id_role"].Equals(2))
+                {
+                    <li><a href="~/Admin/Requests"><i class="zmdi zmdi-assignment"></i><span>Solicitudes</span></a></li>
+                    <li><a href="~/Admin/Providers"><i class="zmdi zmdi-store"></i><span>Proveedores</span></a></li>
+                }
+
+                @if (@Context.Session["Id_role"].Equals(3))
+                {
+                    <li><a href="~/Admin/Requests"><i class="zmdi zmdi-assignment"></i><span>Solicitudes</span></a></li>
+                    <li><a href="~/Admin/Budgets"><i class="zmdi zmdi-file-plus"></i><span>Presupuestos</span></a></li>
+                }
 
             </ul>
         </div>
@@ -91,7 +113,7 @@
                     {
                         <a class="text-secondary" href="@ViewBag.URL"><i class="fas fa-chevron-circle-left mr-1"></i>Volver</a>
                     }
-                    @if (ViewBag.Create != null)
+                    @if (ViewBag.Create != null && ViewBag.Create)
                     {
                         <a href="@ViewBag.URL"><i class="fas fa-plus mr-1"></i>@ViewBag.Text</a>
                     }
@@ -113,6 +135,7 @@
 
     <script src="~/Content/assets/Admin/bundles/mainscripts.bundle.js"></script>
     <script src="~/Content/assets/Admin/js/pages/index.js"></script>
+
 </body>
 
 

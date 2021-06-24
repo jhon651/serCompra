@@ -2,8 +2,8 @@
 @{
     Layout = "~/Views/Shared/_LT_Admin.cshtml";
     ViewBag.Title = ViewBag.titlePart + " Perfil";
-}
 
+}
 
 <div class="container-fluid">
     <div class="row clearfix">
@@ -11,10 +11,10 @@
             <div class="card mcard_3">
                 <div class="body">
                     <a href="profile.html"><img src="~/Content/assets/Admin/images/profile_av.jpg" class="rounded-circle shadow " alt="profile-image"></a>
-                    <h4 class="m-t-10">[Nombre Apellido]</h4>
+                    <h4 class="m-t-10">@Context.Session["Fullname"]</h4>
                     <div class="row">
                         <div class="col-12">
-                            <p class="text-muted">[Nombre de la empresa]</p>
+                            <p class="text-muted">@Context.Session["Provider_name"]</p>
                         </div>
                         <div class="col-4">
                             <small>Solicitudes</small>
@@ -44,138 +44,204 @@
                     <hr>
                     <small class="text-muted">Fecha de Registro: </small>
                     <p>@ViewBag.User.created_at</p>
-                    <hr>
-                    <small class="text-muted">Cambiar Contraseña: </small>
-                    <button type="button" class="btn btn-primary">Actualizar Contraseña</button>
-                    <hr>
+                   
+                    <!--<small class="text-muted">Cambiar Contraseña: </small>
+                        <button type="button" class="btn btn-primary">Actualizar Contraseña</button>
+                    <hr>-->
                 </div>
             </div>
         </div>
-        <div class="col-lg-8 col-md-12">
-            <div class="card">
-                <div class="header">
-                    <h2><strong>Datos</strong> Proveedor</h2>
+        @if (Context.Session["Id_provider"] != null)
+        {
+            var status = ViewBag.Provider.status == 0 ? "Registrado" : ViewBag.Provider.status == 1 ? "Revision" : ViewBag.Provider.status == 2 ? "Autorizado" : ViewBag.Provider.status == 3 ? "Inabilitado" : "Rechazado";
+
+            <div class="col-lg-8 col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2><strong>Datos</strong> Proveedor</h2>
+                    </div>
+                    <div class="body">
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label for="example-text-input" class="col-sm-12 col-form-label">Razon Social</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.legal_name</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="example-date-input" class="col-sm-12 col-form-label">RUT</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.rut</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label for="example-number-input" class="col-sm-12 col-form-label">Correo Electronico</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.email</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="example-number-input" class="col-sm-12 col-form-label">Telefono</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.phone</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label for="example-number-input" class="col-sm-12 col-form-label">Direccion</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.address</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="example-number-input" class="col-sm-12 col-form-label">Fecha de Registro</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.created_at</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label for="example-number-input" class="col-sm-12 col-form-label">Estado</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@status</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="example-number-input" class="col-sm-12 col-form-label">Ultima Actualizacion</label>
+                                <div class="col-sm-12">
+                                    <span class="form-control disabled">@ViewBag.Provider.updated_at</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="body">
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <label for="example-text-input" class="col-sm-12 col-form-label">Razon Social</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.legal_name</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="example-date-input" class="col-sm-12 col-form-label">RUT</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.rut</span>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="header">
+                        <h2><strong>Documentos</strong> Requeridos</h2>
                     </div>
+                    <div class="body">
+                        <h6 class="my-1">Cargar Documentos</h6>
+ 
+                            <form action="/Admin/AddDoc" method="post" encType="multipart/form-data">
+                                <input type="hidden" name="RedirectTo" value="Profile" />
+                                <input type="hidden" name="Id" value="@Context.Session["Id_provider"]" />
+                                <div class="d-flex justify-content-between align-items-center border rounded px-2">
+                                    <label class="m-0">
+                                        <i class="fas fa-file-alt mr-1 text-muted"></i>Selecciona un documento...
+                                        <input type="file" name="files" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*" class="d-none" required />
+                                    </label>
+                                    <select name="type" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">Documento de registro</option>
+                                        <option value="2">RUT</option>
+                                        <option value="3">Certificación Bancaria</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-paperclip mr-1"></i>Adjuntar</button>
+                                </div>
+                            </form>
+                            <hr />
 
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <label for="example-number-input" class="col-sm-12 col-form-label">Correo Electronico</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.email</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="example-number-input" class="col-sm-12 col-form-label">Telefono</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.phone</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <label for="example-number-input" class="col-sm-12 col-form-label">Direccion</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.address</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="example-number-input" class="col-sm-12 col-form-label">Fecha de Registro</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.created_at</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <label for="example-number-input" class="col-sm-12 col-form-label">Estado</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.status</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="example-number-input" class="col-sm-12 col-form-label">Ultima Actualizacion</label>
-                            <div class="col-sm-12">
-                                <span class="form-control disabled">@ViewBag.Provider.updated_at</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="card">
-                <div class="header">
-                    <h2><strong>Documentos</strong> Requeridos</h2>
-                </div>
-                <div class="body">
-                    <h6 class="my-1">Cargar Documentos</h6>
-                    <form action="/Admin/AddDoc" method="post" encType="multipart/form-data">
-                        <input type="hidden" name="RedirectTo" value="Profile" />
-                        <input type="hidden" name="Id" value="1" />
-                        <div class="d-flex justify-content-between align-items-center border rounded px-2">
-                            <label class="m-0">
-                                <i class="fas fa-file-alt mr-1 text-muted"></i>Selecciona un documento...
-                                <input type="file" name="files" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*" class="d-none" required />
-                            </label>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-paperclip mr-1"></i>Adjuntar</button>
-                        </div>
-                    </form>
-                    <hr />
-                    <div class="py-2">
-                        <h6 class="my-1">Documentos Cargados</h6>
-                        <table class="docs table-hover rounded w-100">
-                            <thead>
-                                <tr>
-                                    <th width="10%">ID</th>
-                                    <th class="text-left">Nombre</th>
-                                    <th>Fecha</th>
-                                    <th>Estado</th>
-                                    <th width="20%">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in ViewBag.Documents)
-                                {
-                                    string create = item.created_at.ToString();
-                                    string color = item.status == 1 ? "text-success" : item.status == 2 ? "text-warning" : "text-muted";
+                   
+                        <div class="py-2">
+                            <h6 class="my-1">Documentos Cargados</h6>
+                            <table class="docs table-hover rounded w-100">
+                                <thead>
                                     <tr>
-                                        <td>@item.id</td>
-                                        <td class="text-left">@item.name</td>
-                                        <td>@create.Split(' ')[0]</td>
-                                        <td class="@color">@(item.status == 1 ? "Aprobado" : item.status == 2 ? "Rechazado" : "Cargado")</td>
-                                        <td>
-                                            <a class="btn btn-link text-primary" target="_blank" download="@item.name" href="@item.path.Replace(@"~","")"><i class="fas fa-file-download mr-1"></i></a>
-                                            @if (item.status==2)
-                                            {
-                                                <a class="btn btn-link text-danger" href="/Admin/DeleteDoc/@item.id"><i class="fas fa-trash-alt"></i></a>
-                                            }
-                                        </td>
-
+                                        <th width="10%">ID</th>
+                                        <th class="text-left">Nombre</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th width="20%">Acciones</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.Documents)
+                                    {
+                                        string create = item.created_at.ToString();
+                                        string color = item.status == 1 ? "text-success" : item.status == 2 ? "text-warning" : "text-muted";
+                                        <tr>
+                                            <td>@item.id</td>
+                                            <td class="text-left">@item.name</td>
+                                            <td>@create.Split(' ')[0]</td>
+                                            <td class="@color">@(item.status == 1 ? "Aprobado" : item.status == 2 ? "Rechazado" : "Cargado")</td>
+                                            <td>
+                                                <a class="btn btn-link text-primary" target="_blank" download="@item.name" href="@item.path.Replace(@"~", "")"><i class="fas fa-file-download mr-1"></i></a>
+                                                @if (item.status == 2)
+                                                {
+                                                    <a class="btn btn-link text-danger" href="/Admin/DeleteDoc/@item.id"><i class="fas fa-trash-alt"></i></a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        }
+        else
+        {
+            <div class="col-lg-8 col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2><strong>Registrar</strong> Proveedor</h2>
+                    </div>
+                    <div class="body">
+                        <form action="/Admin/Provider" method="post">
+                            <input type="hidden" name="id_user" value="@Context.Session["Id"]" />
+                            <div class="form-horizontal">
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="control-label ">Razon social</label>
+                                        <div class="w-100">
+                                            <input class="form-control" type="text" name="legal_name" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-date-input">RUT</label>
+                                        <div class="w-100">
+                                            <input class="form-control" type="text" name="rut" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="control-label ">Correo Electronico</label>
+                                        <div class="w-100">
+                                            <input class="form-control" type="text" name="email" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-date-input">Telefono</label>
+                                        <div class="w-100">
+                                            <input class="form-control" type="text" name="phone" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-100">
+                                    <label for="example-date-input">Direccion</label>
+                                    <div class="w-100 ">
+                                        <input class="form-control" type="text" name="address" required />
+                                    </div>
+                                </div>
+                                <div class="w-100 pt-4 d-flex align-items-center justify-content-end">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>                                   
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

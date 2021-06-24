@@ -30,6 +30,7 @@ namespace sercompra.Controllers
                 dbContext.SaveChanges();
             }
             catch (Exception e) {}
+            TempData["NewRegister"] = true;
             return RedirectToAction("Index", "Signin", "");
         }
     }

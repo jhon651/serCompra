@@ -38,6 +38,7 @@
           <Property Name="id_provider" Type="int" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="path" Type="nvarchar" MaxLength="255" />
+          <Property Name="type" Type="tinyint" />
           <Property Name="size" Type="int" />
           <Property Name="content" Type="nvarchar" MaxLength="255" />
           <Property Name="created_at" Type="datetime" />
@@ -142,12 +143,12 @@
           <EntitySet Name="roles" EntityType="Self.role" />
           <EntitySet Name="users" EntityType="sercomprasModel.user" />
           <EntitySet Name="providers" EntityType="sercomprasModel.provider" />
-          <EntitySet Name="documents" EntityType="sercomprasModel.document" />
           <EntitySet Name="budgets" EntityType="sercomprasModel.budget" />
           <EntitySet Name="budget_detail" EntityType="sercomprasModel.budget_detail" />
           <EntitySet Name="request_detail" EntityType="sercomprasModel.request_detail" />
           <EntitySet Name="request_provider" EntityType="sercomprasModel.request_provider" />
           <EntitySet Name="requests" EntityType="sercomprasModel.request" />
+          <EntitySet Name="documents" EntityType="sercomprasModel.document" />
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -177,20 +178,6 @@
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="created_at" Type="DateTime" Precision="3" />
-          <Property Name="updated_at" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Byte" />
-        </EntityType>
-        <EntityType Name="document">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_provider" Type="Int32" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="size" Type="Int32" />
-          <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Byte" />
@@ -253,6 +240,21 @@
           <Property Name="updated_at" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Byte" />
         </EntityType>
+        <EntityType Name="document">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_provider" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Byte" />
+          <Property Name="size" Type="Int32" />
+          <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Byte" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -297,21 +299,6 @@
                 <ScalarProperty Name="rut" ColumnName="rut" />
                 <ScalarProperty Name="legal_name" ColumnName="legal_name" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="documents">
-            <EntityTypeMapping TypeName="sercomprasModel.document">
-              <MappingFragment StoreEntitySet="documents">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-                <ScalarProperty Name="created_at" ColumnName="created_at" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="size" ColumnName="size" />
-                <ScalarProperty Name="path" ColumnName="path" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id_provider" ColumnName="id_provider" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -375,6 +362,22 @@
                 <ScalarProperty Name="date_limit" ColumnName="date_limit" />
                 <ScalarProperty Name="purpose" ColumnName="purpose" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="documents">
+            <EntityTypeMapping TypeName="sercomprasModel.document">
+              <MappingFragment StoreEntitySet="documents">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_provider" ColumnName="id_provider" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

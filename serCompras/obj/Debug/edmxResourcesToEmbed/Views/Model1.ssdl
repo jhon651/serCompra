@@ -33,6 +33,7 @@
     <Property Name="id_provider" Type="int" />
     <Property Name="name" Type="nvarchar" MaxLength="50" />
     <Property Name="path" Type="nvarchar" MaxLength="255" />
+    <Property Name="type" Type="tinyint" />
     <Property Name="size" Type="int" />
     <Property Name="content" Type="nvarchar" MaxLength="255" />
     <Property Name="created_at" Type="datetime" />

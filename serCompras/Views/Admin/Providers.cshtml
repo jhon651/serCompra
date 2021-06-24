@@ -1,4 +1,4 @@
-﻿@model IEnumerable<serCompras.Views.provider>
+﻿@model IEnumerable<serCompras.Models.Providers>
 @{
     Layout = "~/Views/Shared/_LT_Admin.cshtml";
     ViewBag.Title = "Proveedores";
@@ -27,14 +27,16 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
+                            var status =item.status == 0 ? "Registrado" :item.status == 1 ? "Revision" :item.status == 2 ? "Autorizado" :item.status == 3 ? "Inabilitado" : "Rechazado";
+
                             <tr>
                                 <td>@item.id</td>
                                 <td>@item.legal_name</td>
                                 <td>@item.rut</td>
                                 <td>@item.phone</td>
                                 <td>@item.address</td>
-                                <td>@item.id_user</td>
-                                <td>@(item.status == 1 ? "Activo" : "Inactivo")</td>
+                                <td>@item.fullname</td>
+                                <td>@status</td>
                                 <td>
                                     <a class="btn btn-link text-primary" href="/Admin/Provider/@item.id"><i class="fas fa-edit mr-1"></i></a>
                                     <a class="btn btn-link text-danger" href="/Admin/DeleteProvider/@item.id"><i class="fas fa-trash-alt"></i></a>

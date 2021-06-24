@@ -28,11 +28,11 @@ namespace serCompras.Views
         public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<provider> providers { get; set; }
-        public virtual DbSet<document> documents { get; set; }
         public virtual DbSet<budget> budgets { get; set; }
         public virtual DbSet<budget_detail> budget_detail { get; set; }
         public virtual DbSet<request_detail> request_detail { get; set; }
         public virtual DbSet<request_provider> request_provider { get; set; }
         public virtual DbSet<request> requests { get; set; }
+        public virtual DbSet<document> documents { get; set; }
     }
 }

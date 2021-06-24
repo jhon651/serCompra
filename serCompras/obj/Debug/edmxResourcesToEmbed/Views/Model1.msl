@@ -43,21 +43,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="documents">
-      <EntityTypeMapping TypeName="sercomprasModel.document">
-        <MappingFragment StoreEntitySet="documents">
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-          <ScalarProperty Name="created_at" ColumnName="created_at" />
-          <ScalarProperty Name="content" ColumnName="content" />
-          <ScalarProperty Name="size" ColumnName="size" />
-          <ScalarProperty Name="path" ColumnName="path" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="budgets">
       <EntityTypeMapping TypeName="sercomprasModel.budget">
         <MappingFragment StoreEntitySet="budget">
@@ -117,6 +102,22 @@
           <ScalarProperty Name="date_limit" ColumnName="date_limit" />
           <ScalarProperty Name="purpose" ColumnName="purpose" />
           <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documents">
+      <EntityTypeMapping TypeName="sercomprasModel.document">
+        <MappingFragment StoreEntitySet="documents">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="size" ColumnName="size" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id_provider" ColumnName="id_provider" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

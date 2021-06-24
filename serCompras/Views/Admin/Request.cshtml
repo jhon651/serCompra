@@ -13,83 +13,171 @@
 
             @using (Html.BeginForm())
             {
+
+                var date_limit = "";
+                var status = "En Creacion";
+                if (Model != null)
+                {
+                    var dateModel = Model.date_limit.ToString().Split(' ')[0].Split('/');
+                    date_limit = dateModel[2] + '-' + dateModel[1] + '-' + dateModel[0];
+
+                    status = Model.status == 0 ? "Creada" : Model.status == 1 ? "Emitida" : Model.status == 2 ? "Finalizada" : Model.status == 3 ? "Atendida" : Model.status == 4 ? "Concretada" : "Vencida";
+                }
+
+
                 @Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <label class="control-label ">Proposito</label>
-                            <div class="w-100">
-                                @Html.TextAreaFor(model => model.purpose, new { @class = "form-control ", maxlength = "100", required = "required" })
-                                @Html.ValidationMessageFor(model => model.purpose, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="example-date-input">Fecha Limite</label>
-                            <div class="w-100">
-                                @Html.TextBoxFor(model => model.date_limit, new { @class = "form-control w-100", type = "date", maxlength = "100", required = "required" })
-                                @Html.ValidationMessageFor(model => model.date_limit, "", new { @class = "text-danger" })
-                            </div>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label for="example-date-input">Fecha Limite</label>
+                        <div class="w-100">
+                            <input type="date" name="date_limit" value="@date_limit" class="form-control" required />
+                            @Html.ValidationMessageFor(model => model.date_limit, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="w-100 pt-4 d-flex justify-content-center align-items-center">
+                    <div class="col-6">
+                        <label for="example-date-input">Estado</label>
+                        <div class="w-100">
+                            <label class="form-control disabled">@status</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <label class="control-label ">Proposito</label>
+                    <div class="w-100">
+                        @Html.TextAreaFor(model => model.purpose, new { @class = "form-control ", maxlength = "100", required = "required" })
+                        @Html.ValidationMessageFor(model => model.purpose, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @if (Context.Session["Id_role"].Equals("2"))
+                {
+                    <div class="w-100 pt-4 d-flex justify-content-center align-items-end">
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
+                }
                 </div>
             }
         </div>
     </div>
-</div>
 
-    <div class="card">
-        <div class="header">
-            <h2><strong>Articulos</strong> Requeridos</h2>
-        </div>
-        <div class="body">
-            <div class="d-flex justify-content-between align-items-center border rounded px-2">
-                <form action="~/Admin/AddArticle" method="post" class="w-100">
-                    <table class="w-100">
+    @if (Model != null)
+    {
+
+
+        <div class="card">
+            <div class="header">
+                <h2><strong>Lista</strong> Articulos</h2>
+            </div>
+            <div class="body">
+                @if (Context.Session["Id_role"].Equals("2"))
+                {
+                    <div class="d-flex justify-content-between align-items-center px-2 my-2 ">
+                        <form action="~/Admin/AddArticle" method="post" class="w-100">
+                            <input type="hidden" name="id" value="@Model.id" />
+                            <table class="w-100">
+                                <tr>
+                                    <th class="font-weight-bold px-2" width="10%">Cantidad</th>
+                                    <th class="font-weight-bold  px-2">Descripcion</th>
+                                    <th width="10%"></th>
+                                </tr>
+                                <tr>
+                                    <td class=" px-2"><input type="number" name="quantity" /></td>
+                                    <td class=" px-2"><input type="text" name="description" maxlength="100" class="w-100" /></td>
+                                    <td class=" px-2">
+                                        <button type="submit" class="btn btn-success">Agregar</button>
+                                    </td>
+                            </table>
+                        </form>
+                    </div>
+
+                }
+                <div class="mt-2">
+                    <h6>Lista de articulos</h6>
+                    <table class="table w-100">
                         <tr>
-                            <th class="font-weight-bold px-2" width="10%">Cantidad</th>
-                            <th class="font-weight-bold  px-2">Descripcion</th>
-                            <th width="10%"></th>
+                            <th width="10%">Cantidad</th>
+                            <th class="text-left">Descripcion</th>
+                            <th width="10%">Acciones</th>
                         </tr>
-                        <tr>
-                            <td class=" px-2"><input type="number" name="quantity" value="0" /></td>
-                            <td class=" px-2"><input type="text" name="description" maxlength="100" class="w-100" /></td>
-                            <td class=" px-2">
-                                <button type="submit" class="btn btn-success">Agregar</button>
-                            </td>
+                        <tbody>
+                            @foreach (var item in ViewBag.Articles)
+                            {
+                                <tr>
+                                    <td>@item.quantity</td>
+                                    <td class="text-left">@item.description</td>
+                                    <td>
+                                        @if (Context.Session["Id_role"].Equals("2") && @Model.status != 3)
+                                        {
+                                            <a href="/Admin/DelArticle/?idRequest=@Model.id&id=@item.id">Delete</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
                     </table>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card">
-        <div class="header">
-            <h2><strong>Articulos</strong> Requeridos</h2>
-        </div>
-        <div class="body">
-            <div class="d-flex justify-content-between align-items-center border rounded px-2">
-                <form action="~/Admin/AddProvider" method="post" class="w-100">
-                    <table class="w-100">
-                        <tr>
-                            <th class="font-weight-bold">Proveedor</th>
-                            <th width="10%"></th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select>
-                                    <option value="value">text</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-success">Agregar</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
+        if (Context.Session["Id_role"].Equals("2"))
+        {
+            <div class="card">
+                <div class="header">
+                    <h2><strong>Proveedores</strong> Asignados</h2>
+                </div>
+                <div class="body">
+                    <div class="d-flex justify-content-between align-items-center border rounded px-2">
+                        <form action="~/Admin/AddProvider" method="post" class="w-100">
+                            <input type="hidden" name="id" value="@Model.id" />
+                            <table class="w-100">
+                                <tr>
+                                    <th class="font-weight-bold">Proveedor</th>
+                                    <th width="10%"></th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select class="w-100 " name="id_provider" required>
+                                            <option value="">Seleccione...</option>
+                                            @foreach (var item in ViewBag.ListProviders)
+                                            {
+                                                <option value="@item.id">@item.legal_name</option>
+                                            }
 
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success">Agregar</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="mt-2">
+                        <h6>Lista de articulos</h6>
+                        <table class="table w-100">
+                            <tr>
+
+                                <th class="text-left">Nombre Proveedor</th>
+                                <th width="10%">Acciones</th>
+                            </tr>
+                            <tbody>
+                                @foreach (var item in ViewBag.Providers)
+                                {
+                                    <tr>
+                                        <td class="text-left">@item.legal_name</td>
+                                        <td>
+                                            <a href="/Admin/DelProvider/?idRequest=@Model.id&id=@item.id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            }
+        }
+    </div>

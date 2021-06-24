@@ -1,22 +1,56 @@
-﻿
-@{ Layout = "~/Views/Shared/_LT_Admin.cshtml";
-    ViewBag.Title = "Presupuestos"; }
+﻿@model IEnumerable<serCompras.Models.Budgets>
+@{
+    Layout = "~/Views/Shared/_LT_Admin.cshtml";
+    ViewBag.Title = "Presupuestos";
+}
+
 
 <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="card">
+        <div class="header">
+            <h2><strong>Presupuestos Registrados</strong></h2>
+        </div>
         <div class="body">
             <div class="table-responsive">
-                <table class="table table-striped m-b-0">
+                <table class="table table-hover rounded">
                     <thead>
-                        <th>ID</th>
-                        <th>Solicitud</th>
-                        <th>Proveedor</th>
-                        <th>Responsable</th>
-                        <th>Fecha<br/>Creación</th>
-                        <th>Fecha<br/>Expiración</th>
-                        <th>Acción</th>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th class="text-left">Solicitud emitida por</th>
+                            <th>Cod. Solicitud</th>
+                            <th>Fec. Límite</th>
+                            <th>Fec. Creación</th>
+                            <th>Estado</th>
+                            <th width="10%">Acciones</th>
+                        </tr>
                     </thead>
                     <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var status = item.status == 0 ? "Creada" : item.status == 1 ? "Enviada" : item.status == 2 ? "Aceptada" : item.status == 3 ? "Finalizada" : item.status == 4 ? "Vencida" : "No Disponible";
+
+                            <tr>
+                                <td>@item.id</td>
+                                <td class="text-left">@item.fullname</td>
+                                <td>@item.id_request</td>
+                                <td>@item.date_limit.ToString().Split(' ')[0]</td>
+                                <td>@item.created_at.ToString().Split(' ')[0]</td>
+                                <td>@status</td>
+                                <td>
+                                    
+                                        <a class="btn btn-link text-primary" href="/Admin/Budget/@item.id"><i class="fas fa-edit mr-1"></i></a>
+                                 
+
+                                </td>
+                            </tr>
+                        }
+
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="7">No se han registrado solicitudes!</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
